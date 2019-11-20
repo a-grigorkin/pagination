@@ -1,0 +1,23 @@
+{
+    "name": "a-grigorkin/pagination",
+    "description": "Pagination for Laravel Framework",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Grigorkin",
+            "email": "a.grigorkin@outlook.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^6.5",
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "AndrewGrigorkin\\Pagination\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
