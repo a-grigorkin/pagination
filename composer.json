@@ -18,6 +18,13 @@
             "AndrewGrigorkin\\Pagination\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AndrewGrigorkin\\Pagination\\Providers\\PaginationServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
