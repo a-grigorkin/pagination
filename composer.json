@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "AndrewGrigorkin\\Pagination\\Providers\\PaginationServiceProvider"
+                "AndrewGrigorkin\\Pagination\\PaginationServiceProvider"
             ]
         }
     },
