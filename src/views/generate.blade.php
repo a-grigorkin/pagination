@@ -1,18 +1,18 @@
-@for ($i = $pagination['a']; $i <= $pagination['b']; $i++)
-    @if ($i == $pagination['y'])
-        <span style='color: red; font-weight: bold;'>{{ $i }}</span>
+@for ($i = $p['a']; $i <= $p['b']; $i++)
+    @if ($i == $p['y'])
+        <span class="{{ $active }}">{{ $i }}</span>
     @else
-        <a href="{{ route('pagination', ['p' => $i]) }}">{{ $i }}</a>
+        <span class="{{ $inactive }}"><a href="{{ route($route, ['p' => $i]) }}">{{ $i }}</a></span>
 
-        @if ($i == $pagination['a'] && isset($pagination['x']))
+        @if ($i == $p['a'] && isset($p['x']))
             @php
-            $i = $pagination['x'] - 1;
+            $i = $p['x'] - 1;
             @endphp
 
             ...
-        @elseif (isset($pagination['z']) && $i == $pagination['z'])
+        @elseif (isset($p['z']) && $i == $p['z'])
             @php
-            $i = $pagination['b'] - 1;
+            $i = $p['b'] - 1;
             @endphp
 
             ...

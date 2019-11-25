@@ -5,31 +5,63 @@ namespace AndrewGrigorkin\Pagination;
 class Pagination
 {
     /**
-     * @param int $y current page
-     * @param int $count total number of pages
+     * @param array $options
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public static function generate(int $y, int $count)
+    public static function generate(array $options = [])
     {
-        $p['a'] = 1; // First page.
-        $p['b'] = ($count > 0) ? $count : $p['a']; // Last page.
-        $p['y'] = ($y >= $p['a'] && $y <= $p['b']) ? $y : $p['a']; // Current page.
+        $options = self::loadOptions($options);
 
-        $offset = 2;
+        // first page
+        $p['a'] = 1;
+        // last page
+        $p['b'] = ($options['max'] > 0) ? $options['max'] : $p['a'];
+        // current page
+        $p['y'] = ($options['current'] >= $p['a'] && $options['current'] <= $p['b']) ? $options['current'] : $p['a'];
 
-        $p['x'] = $p['y'] - $offset;
-        $p['z'] = $p['y'] + $offset;
+        $p['x'] = $p['y'] - $options['offset'];
+        $p['z'] = $p['y'] + $options['offset'];
 
-        if (($p['x'] - 1) <= $p['a'])
+        if (($p['x'] - $options['edge']) <= $p['a'])
         {
             unset($p['x']);
         }
 
-        if (($p['z'] + 1) >= $p['b'])
+        if (($p['z'] + $options['edge']) >= $p['b'])
         {
             unset($p['z']);
         }
 
-        return view('pagination::generate', ['pagination' => $p]);
+        $params['p'] = $p;
+        $params['route'] = $options['route'];
+        $params['active'] = $options['css_class_active'];
+        $params['inactive'] = $options['css_class_inactive'];
+
+        return view('pagination::generate', $params);
+    }
+
+    /**
+     * @param array $options
+     * @return array
+     */
+    private static function loadOptions(array $options)
+    {
+        $defaultOptions['css_class_active'] = 'pagination--active';
+        $defaultOptions['css_class_inactive'] = 'pagination--inactive';
+        $defaultOptions['current'] = 5;
+        $defaultOptions['edge'] = 1;
+        $defaultOptions['max'] = 10;
+        $defaultOptions['offset'] = 2;
+        $defaultOptions['route'] = 'pagination';
+
+        foreach ($defaultOptions as $key => $value)
+        {
+            if (!isset($options[$key]) || gettype($options[$key]) != gettype($defaultOptions[$key]))
+            {
+                $options[$key] = $defaultOptions[$key];
+            }
+        }
+
+        return $options;
     }
 }
