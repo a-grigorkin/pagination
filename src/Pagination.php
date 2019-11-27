@@ -54,14 +54,14 @@ class Pagination
         $defaultOptions['offset'] = 2;
         $defaultOptions['route'] = 'pagination';
 
-        foreach ($defaultOptions as $key => $value)
+        foreach ($options as $key => $option)
         {
-            if (!isset($options[$key]) || gettype($options[$key]) != gettype($defaultOptions[$key]))
+            if (isset($defaultOptions[$key]) && gettype($defaultOptions[$key]) == gettype($option))
             {
-                $options[$key] = $defaultOptions[$key];
+                $defaultOptions[$key] = $option;
             }
         }
 
-        return $options;
+        return $defaultOptions;
     }
 }
